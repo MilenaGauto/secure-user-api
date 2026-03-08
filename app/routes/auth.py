@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from app.models.user import User
+from app.schemas.user_schema import UserCreate
 from app.services.user_service import create_user, get_user_by_email
 from app.services.auth_service import verify_password, create_access_token
 from app.services.auth_service import hash_password
@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 @router.post("/register")
-def register(user: User):
+def register(user: UserCreate):
 
     user.password = hash_password(user.password)
 
