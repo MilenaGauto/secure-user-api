@@ -1,79 +1,201 @@
 # Secure User API
 
-API REST segura para gestión de usuarios con autenticación JWT construida con **FastAPI**.
+REST API for user authentication and management built with **FastAPI**, **PostgreSQL**, and **JWT authentication**.
 
-## 🚀 Features
+This project demonstrates a clean backend architecture using **routes, services, schemas, and database layers**.
 
-* Registro de usuarios
-* Autenticación con JWT
-* Hash seguro de contraseñas
-* CRUD de usuarios
-* Estructura profesional por capas
-* Documentación automática con Swagger
+---
 
-## 🛠️ Tecnologías
+# 🚀 Tech Stack
 
-* FastAPI
 * Python
-* JWT (python-jose)
-* Passlib (bcrypt)
+* FastAPI
+* PostgreSQL
+* SQLAlchemy
+* JWT Authentication
+* Pydantic
 * Uvicorn
 
-## 📂 Estructura del proyecto
+---
+
+# 📂 Project Structure
 
 ```
-secure-user-api
-│
-├── app
-│   ├── main.py
-│   ├── models
-│   │   └── user.py
-│   ├── schemas
-│   │   └── user_schema.py
-│   ├── routes
-│   │   └── user_routes.py
-│   ├── services
-│   │   ├── auth_service.py
-│   │   └── user_service.py
-│   └── utils
-│       └── security.py
-│
-├── requirements.txt
-└── README.md
+app
+ ├── database
+ │   └── connection.py
+ │
+ ├── models
+ │   └── user.py
+ │
+ ├── schemas
+ │   └── user_schema.py
+ │
+ ├── routes
+ │   ├── auth.py
+ │   └── user.py
+ │
+ ├── services
+ │   ├── auth_service.py
+ │   └── user_service.py
+ │
+ └── main.py
 ```
 
-## ▶️ Ejecutar el proyecto
+### Explanation
 
-Instalar dependencias:
+* **database** → database connection configuration
+* **models** → SQLAlchemy database models
+* **schemas** → Pydantic validation models
+* **routes** → API endpoints
+* **services** → business logic
+* **main.py** → application entry point
+
+---
+
+# 🔐 Features
+
+* User registration
+* User login
+* Password hashing
+* JWT token generation
+* PostgreSQL database integration
+* Clean backend architecture
+
+---
+
+# ⚙️ Installation
+
+Clone the repository:
+
+```
+git clone https://github.com/MilenaGauto/secure-user-api.git
+cd secure-user-api
+```
+
+Install dependencies:
 
 ```
 pip install -r requirements.txt
 ```
 
-Correr el servidor:
+---
+
+# 🗄️ Database Setup
+
+Make sure **PostgreSQL** is installed.
+
+Create the database:
+
+```
+CREATE DATABASE secure_user_api;
+```
+
+Update the database connection in:
+
+```
+app/database/connection.py
+```
+
+Example connection string:
+
+```
+postgresql://postgres:YOUR_PASSWORD@localhost:5432/secure_user_api
+```
+
+---
+
+# ▶️ Running the API
+
+Start the server with:
 
 ```
 uvicorn app.main:app --reload
 ```
 
-## 📖 Documentación de la API
+API will run at:
 
-Swagger UI:
+```
+http://127.0.0.1:8000
+```
+
+Interactive API documentation:
 
 ```
 http://127.0.0.1:8000/docs
 ```
 
-## 🔐 Endpoints principales
+---
 
-| Método | Endpoint    | Descripción           |
-| ------ | ----------- | --------------------- |
-| POST   | /register   | Registrar usuario     |
-| POST   | /login      | Login y obtener token |
-| GET    | /users      | Listar usuarios       |
-| GET    | /users/{id} | Obtener usuario       |
-| DELETE | /users/{id} | Eliminar usuario      |
+# 📬 API Endpoints
 
-## 👨‍💻 Autor
+## Authentication
 
-Proyecto backend desarrollado para práctica profesional con FastAPI.
+### Register User
+
+```
+POST /auth/register
+```
+
+Request example:
+
+```
+{
+  "email": "user@email.com",
+  "password": "123456"
+}
+```
+
+---
+
+### Login
+
+```
+POST /auth/login
+```
+
+Request example:
+
+```
+{
+  "email": "user@email.com",
+  "password": "123456"
+}
+```
+
+Response example:
+
+```
+{
+  "access_token": "JWT_TOKEN"
+}
+```
+
+---
+
+# 🔑 Authentication Flow
+
+1. User registers
+2. Password is hashed before saving
+3. User logs in
+4. API generates a JWT token
+5. Token can be used to access protected endpoints
+
+---
+
+# 📌 Future Improvements
+
+* Protected routes using JWT
+* Docker support
+* Database migrations with Alembic
+* Refresh tokens
+* Role-based authentication
+
+---
+
+# 👩‍💻 Author
+
+Milena Gauto
+
+GitHub
+https://github.com/MilenaGauto
